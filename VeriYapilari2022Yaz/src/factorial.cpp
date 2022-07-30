@@ -1,4 +1,5 @@
 
+
 #include "factorial.hpp"
 #include <string>
 
@@ -12,18 +13,20 @@ BigDecimal * Factorial::getResult() {
 
 void Factorial::calculateFact(int num) {//faktoriyal hesaplar
 
-    BigDecimal *factorial = new BigDecimal("1");
+    BigDecimal *factorial = new BigDecimal(std::to_string(num));
     BigDecimal *oldValue;
 
-    if (num < 0) {
-
+    if (num <= 0) {
+        delete factorial ;
+        factorial=new BigDecimal("1");
+        result =factorial;
         return;
 
     } else {
-        for (int i = 1; i <= num; ++i) {
+        for (int i = num-1; i >=1 ; --i) {
             BigDecimal * tmpNum = new BigDecimal(std::to_string(i)); //bir sonraki sayi 
             oldValue = factorial;
-            factorial = *oldValue *= *tmpNum;
+            factorial =*oldValue*=*tmpNum;
             delete oldValue; //cop olusmamasi icin eski deger silinir
 
             delete tmpNum; //sayinin silinmesi
@@ -32,6 +35,7 @@ void Factorial::calculateFact(int num) {//faktoriyal hesaplar
 
 
     }
+    
 
     int count1 = 0; //sonucun basindaki 0 sayisi
 
